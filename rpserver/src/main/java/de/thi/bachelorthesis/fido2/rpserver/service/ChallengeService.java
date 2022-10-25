@@ -1,0 +1,12 @@
+package de.thi.bachelorthesis.fido2.rpserver.service;
+
+import de.thi.bachelorthesis.fido2.rpserver.model.transport.ServerPublicKeyCredentialCreationOptionsRequest;
+import de.thi.bachelorthesis.fido2.rpserver.model.transport.ServerPublicKeyCredentialCreationOptionsResponse;
+import de.thi.bachelorthesis.fido2.rpserver.model.transport.ServerPublicKeyCredentialGetOptionsRequest;
+import de.thi.bachelorthesis.fido2.rpserver.model.transport.ServerPublicKeyCredentialGetOptionsResponse;
+
+public interface ChallengeService {
+    ServerPublicKeyCredentialCreationOptionsResponse getRegChallenge(ServerPublicKeyCredentialCreationOptionsRequest regOptionRequest);
+
+    ServerPublicKeyCredentialGetOptionsResponse getAuthChallenge(ServerPublicKeyCredentialGetOptionsRequest authOptionRequest);
+}
