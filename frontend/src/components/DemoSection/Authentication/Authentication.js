@@ -286,7 +286,7 @@ const Authentication = () => {
             <AccountContainer className={activeAuthDemo === false ? 'active' : ''}>
                 <Heading className={'active-heading'}>Verwalten der Credentials</Heading>
                 <CustomButton onClick={() => backToAuthDemo()}>Zurück</CustomButton>
-                <h3 style={{textAlign: 'center', marginTop: '10px'}}>Username: <em>{loggedInUsername}</em></h3>
+                <h3 style={{textAlign: 'center', marginTop: '10px'}}>Benutzername: <em>{loggedInUsername}</em></h3>
                 <h3 style={{textAlign: 'center', marginTop: '10px'}}>Anzeigename: <em>{loggedInDisplayname}</em></h3>
                 <h3 style={{marginTop: '20px'}}>Registrierte Credentials:</h3>
 
@@ -297,32 +297,37 @@ const Authentication = () => {
                 <CustomButton className={activeRegOpt === true ? 'notActive' : ''} onClick={() => openRegisterNewCredentialOptions()} style={{marginTop: '30px' ,width: '300px'}}>Neues Credential registieren</CustomButton>
 
                 <RegistrationOptionsContainer className={activeRegOpt === true ? 'active' : ''}>
-                    <h4>Attestation Conveyance Preference (Beglaubigung des Authentikators):</h4>
+                    <h4>Authentifikatorbeglaubigung:</h4>
                     <ul style={{fontSize: '13px', marginLeft: '12px', marginBottom: '10px', marginTop: '10px', lineHeight: '20px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                        <li><b>NONE:</b> Standardwert. Die relying party ist an KEINER Beglaubigung durch den Authentikator interessiert.</li>
-                        <li><b>INDIRECT:</b> Die relying party möchte eine Beglaubigung erhalten, überlässt den Client jedoch die Entscheidung, wie diese auszusehen hat. D.h. der Client KANN die vom Authenticator generierte Beglaubigung verändern/anonymisieren, um bspw. die Privatsphäre des Benutzers zu schützen. Die relying party hat in diesem Fall jedoch eine Garantie dafür, dass diese Bescheinigung verifizierbar ist.</li>
-                        <li><b>DIRECT:</b> Die relying party benötigt eine verifizierbare Bescheinigung direkt vom Authentikator.</li>
+                        <li><b>NONE:</b> Standardwert. Die relying party ist an KEINER Beglaubigung vom Authentifikator interessiert.</li>
+                        <li><b>INDIRECT:</b> Die relying party möchte eine Beglaubigung erhalten, überlässt den
+                            Client jedoch die Entscheidung, wie diese auszusehen hat. D.h. der Client KANN die
+                            vom Authentifikator generierte Beglaubigung verändern/anonymisieren, um bspw. die
+                            Privatsphäre des Benutzers zu schützen. Die relying party hat in diesem Fall jedoch
+                            keine Garantie dafür, dass diese Bescheinigung verifizierbar ist.
+                        </li>
+                        <li><b>DIRECT:</b> Die relying party benötigt eine verifizierbare unveränderte Bescheinigung direkt vom Authentifikator.</li>
                     </ul>
                     <RadioButton type='radio' value='none' name='attestationNewCred' checked={attestationRegNewCred === 'none'} onChange={e => setAttestationRegNewCred(e.target.value)}/>None
                     <RadioButton type='radio' value='indirect' name='attestationNewCred' checked={attestationRegNewCred === 'indirect'} onChange={e => setAttestationRegNewCred(e.target.value)} style={{marginLeft: '20px'}}/>Indirect
                     <RadioButton type='radio' value='direct' name='attestationNewCred' checked={attestationRegNewCred === 'direct'} onChange={e => setAttestationRegNewCred(e.target.value)} style={{marginLeft: '20px'}}/>Direct
 
-                    <h4 style={{marginTop: '20px'}}>Authentikator Attachment (Authentikatorplattform):</h4>
+                    <h4 style={{marginTop: '20px'}}>Authentifikatorplattform:</h4>
                     <ul style={{fontSize: '13px', marginLeft: '12px', marginBottom: '10px', marginTop: '10px', lineHeight: '20px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                        <li><b>PLATFORM:</b> Der Authentikator ist fest im Gerät verbaut (TouchID, FaceID, ...).</li>
-                        <li><b>CROSS-PLATFORM:</b> Der Authentikator ist entfernbare Hardware (YubiKey, Bluetooth, ...).</li>
+                        <li><b>PLATFORM:</b> Der Authentifikator ist fest im Gerät verbaut (TouchID, FaceID, Windows Hello, etc.).</li>
+                        <li><b>CROSS-PLATFORM:</b> Der Authentifikator ist eine entfernbare Hardwarekomponente (USB, Bluetooth, NFC, etc.).</li>
                     </ul>
                     <RadioButton type='radio' value='platform' name='authenticatorNewCred' checked={authenticatorRegNewCred === 'platform'} onChange={e => setAuthenticatorRegNewCred(e.target.value)}/>Platform
                     <RadioButton type='radio' value='cross-platform' name='authenticatorNewCred' checked={authenticatorRegNewCred === 'cross-platform'} onChange={e => setAuthenticatorRegNewCred(e.target.value)} style={{marginLeft: '20px'}}/>Cross-Platform
 
-                    <h4 style={{marginTop: '20px'}}>Resident key (Authentifizierung ohne Benutzernamen):</h4>
+                    <h4 style={{marginTop: '20px'}}>Discoverable Credential (Authentifizierung ohne Benutzernamen):</h4>
                     <RadioButton type='checkbox' onChange={e => setResidentKeyReqRegNewCred(e.target.checked)} />Required
 
-                    <h4 style={{marginTop: '20px'}}>User verification (Benutzerverifizierung):</h4>
+                    <h4 style={{marginTop: '20px'}}>Benutzerverifizierung:</h4>
                     <ul style={{fontSize: '13px', marginLeft: '12px', marginBottom: '10px', marginTop: '10px', lineHeight: '20px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                        <li><b>REQUIRED:</b> Die relying party benötigt zwingend eine Benutzerüberprüfung.</li>
-                        <li><b>PREFERRED:</b> Die relying party bevorzugt eine Benutzerüberprüfung. D.h. Authentifizierung schlägt nicht fehl, wenn eine Verifizierung nicht möglich ist.</li>
-                        <li><b>DISCOURAGED:</b> Die relying party benötigt KEINE Benutzerüberprüfung.</li>
+                        <li><b>REQUIRED:</b> Die relying party benötigt zwingend eine Benutzerverifizierung.</li>
+                        <li><b>PREFERRED:</b> Die relying party bevorzugt eine Benutzerverifizierung. Der Registrierungsprozess wird in diesem Fall jedoch auch erfolgreich durchgeführt, wenn die relying party kein Ergebnis über eine erfolgreich durchgeführte Verifizierung erhält.</li>
+                        <li><b>DISCOURAGED:</b> Die relying party benötigt KEINE Benutzerverifizierung.</li>
                     </ul>
                     <RadioButton type='radio' value='required' name='verificationNewCred' checked={verificationRegNewCred === 'required'} onChange={e => setVerificationRegNewCred(e.target.value)} />Required
                     <RadioButton type='radio' value='preferred' name='verificationNewCred' checked={verificationRegNewCred === 'preferred'} onChange={e => setVerificationRegNewCred(e.target.value)} style={{marginLeft: '20px'}}/>Preferred
@@ -346,8 +351,9 @@ const Authentication = () => {
                 <StepContent className={step === 1 ? 'active-step-content' :  ''}>
                     <Description>
                         <ul style={{marginLeft: '30px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                            <li>In diesem Teil der Demo wird der bei der Registrierung erstellte Berechtigungsnachweis (Credential) dazu genutzt den jeweiligen Benutzer zu authentifizieren.</li>
-                            <li style={{marginTop: '10px'}}>Benötigt wird hierzu lediglich der bei der Registierung angegebene Benutzername. Wurde bei der Registierung in den <em>Weiteren Optionen</em> der Haken bei dem Punkt <em>Discoverable Credential</em> gesetzt kann eine Authentifizierung auch ohne Eingabe eines Benutzernamens erfolgen.</li>
+                            <li>In diesem Teil der Demo wird der bei der Registrierung erstellte Berechtigungsnachweis (Credential) dazu verwendet den jeweiligen Benutzer zu authentifizieren.</li>
+                            <li style={{marginTop: '10px'}}>Benötigt wird hierzu lediglich der bei der Registrierung angegebene Benutzername. Wurde bei der Registrierung in den <em>Weiteren Optionen</em>
+                                der Haken bei dem Punkt <em>Discoverable Credential</em> gesetzt und die Authentifizierungsdaten auf dem Authentifikator gespeichert, kann eine Authentifizierung auch ohne Eingabe eines Benutzernamens erfolgen.</li>
                             <li style={{marginTop: '10px'}}>Der Benutzer hat zudem die Möglichkeit unter den <em>Weiteren Optionen</em> auszuwählen, ob eine Benutzerverifizierung vom Authentifikator durchgeführt werden soll.</li>
                         </ul>
                     </Description>
@@ -361,18 +367,16 @@ const Authentication = () => {
 
 
                     <AuthenticationOptionsContainer className={activeOpt === true ? 'active' : ''}>
-                        <h4 style={{marginTop: '20px'}}>User verification:</h4>
+                        <h4 style={{marginTop: '20px'}}>Benutzerverifizierung:</h4>
                         <p style={{fontSize: '14px', lineHeight: '20px', marginBottom: '10px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                            Dadruch weist die relying-party den Authentikator an eine Benutzerverifizierung durchzuführen
-                            und der relying-party im Anschluss das Ergebnis zukommen zu lassen. Die Verifizierung kann unter anderem durch einen PIN, ein Passwort
-                            oder eines biometrischen Merkmals geschehen.
-
-                            <p style={{marginTop: '3px'}}><em>Diese Option wird normalerweise von der Anwendung selbst festgelegt. D.h. der Benutzer hat i.d.R. keinen Einfluss darüber.</em></p>
+                            Hiermit weist die relying party den Authentifikator an eine Benutzerverifizierung durchzuführen
+                            und der relying party im Anschluss das Ergebnis zukommen zu lassen. Die Verifizierung kann unter anderem durch einen PIN, ein Passwort
+                            oder eines biometrischen Merkmals erfolgen.
                         </p>
                         <ul style={{fontSize: '13px', marginLeft: '12px', marginBottom: '10px', marginTop: '10px', lineHeight: '20px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                            <li><b>REQUIRED:</b> Benutzerüberprüfung zwingend gefordert.</li>
-                            <li><b>PREFERRED:</b> Benutzerüberprüfung wird bevorzugt. D.h. Authentifizierung schlägt nicht fehl, wenn nicht vorhanden.</li>
-                            <li><b>DISCOURAGED:</b> Keine Benutzerüberprüfung.</li>
+                            <li><b>REQUIRED:</b> Die relying party benötigt zwingend eine Benutzerverifizierung.</li>
+                            <li><b>PREFERRED:</b> Die relying party bevorzugt eine Benutzerverifizierung. Der Registrierungsprozess wird in diesem Fall jedoch auch erfolgreich durchgeführt, wenn die relying party kein Ergebnis über eine erfolgreich durchgeführte Verifizierung erhält.</li>
+                            <li><b>DISCOURAGED:</b> Die relying party benötigt KEINE Benutzerverifizierung.</li>
                         </ul>
                         <RadioButton type='radio' value='required' name='verification' checked={verification === 'required'} onChange={e => setVerification(e.target.value)} />Required
                         <RadioButton type='radio' value='preferred' name='verification' checked={verification === 'preferred'} onChange={e => setVerification(e.target.value)} style={{marginLeft: '20px'}}/>Preferred
@@ -394,7 +398,7 @@ const Authentication = () => {
                         <ul style={{fontSize: '15px', marginTop: '8px', marginLeft:'15px', wordBreak: 'normal', whiteSpace: 'normal'}}>
                             <li>Der Client initiiert den folgenden Request, um eine Authentifizierung zu starten.</li>
                             <li style={{marginTop: '10px'}}>Die Authentifizierung kann entweder mit einem Usernamen oder ohne erfolgen.</li>
-                            <li style={{marginTop: '10px'}}>Eine Anmeldung <b>ohne</b> Usernamen setzt jedoch vorraus, dass die Registrierung eines Discoverable Credentials erfolgt ist. D.h. die Anmeldeinformationen können auf dem Authentifikator gespeichert werden.</li>
+                            <li style={{marginTop: '10px'}}>Eine Authentifizierung <b>ohne</b> Usernamen setzt jedoch voraus, dass die Registrierung eines Discoverable Credentials erfolgt ist und somit die Anmeldeinformationen auf dem Authentifikator gespeichert wurden.</li>
                         </ul>
                     </ResponseDescription>
 
@@ -409,18 +413,18 @@ const Authentication = () => {
                             <h3>Browser</h3>
                         </HeadingArrowDescription>
                         <ul style={{fontSize: '15px', marginTop: '8px', marginLeft:'15px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                            <li>Die relying party nimmt den oben durchgeführten request entgegen und antwortet mit einem PublicKeyCredentialRequestOptions Objekt, welches in Schritt 2 an den Authentikator weitergegeben wird und dieser ein passendes Credential dazu sucht.</li>
+                            <li>Die relying party nimmt den oben durchgeführten Request entgegen und antwortet mit einem PublicKeyCredentialRequestOptions Objekt. Dieses wird in Schritt 2 an den Authentifikator weitergegeben.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>status:</b> Gibt den Response Status der relying party an.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>errorMessage:</b> Beinhaltet eine Beschreibung des Fehlers, falls ein Fehler auftritt. Sonst null.</li>
-                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>sessionId:</b> Die ID der Session, um User-Anfragen einer Sitzung zuzuordnen. Wurde von der relying-party erzeugt.</li>
-                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>challenge:</b> Ist ein von der relying-party zufällig generierter Wert und wird benötigt, um Wiederholungsangriffe vorzubeugen. Dieser Wert fließt unter anderem in die Authentifizierungssignatur mit ein.</li>
-                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>timeout:</b> Zeit in Millisekunden, die von der relying party auf eine Antwort gewartet wird bis der Aufruf geschlossen wird.</li>
-                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>rpId:</b> Die ID der relying party. Sie muss dem vom Client gesehenen und bei der Registierung genutzten Origin oder einen Suffix diesen Origins entsprechen.</li>
+                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>sessionId:</b> Die ID der Session, um User-Anfragen einer Sitzung zuzuordnen. Diese wurde von der relying-party erzeugt.</li>
+                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>challenge:</b> Ist ein von der relying party zufällig generierter Wert und dient unter anderem der Vorbeugung von Wiederholungsangriffen. Dieser Wert fließt außerdem unter anderem in die Authentifizierungssignatur mit ein.</li>
+                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>timeout:</b> Zeit in Millisekunden, die von der relying party auf eine Antwort gewartet wird.</li>
+                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>rpId:</b> Wert zur eindeutigen Identifikation der relying party. Dieser Wert muss ein Suffix des Origin sein.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>allowCredentials:</b> Eine Liste der registierten Credentials des Benutzers. Wird eine Authentifizierung ohne Benutzernamen gewählt, ist diese Liste leer und der Authentifikator sucht sich das jeweilige passende Credential selbst anhand der vorliegenden rpID.</li>
                                 <li style={{marginLeft: '45px', marginTop: '4px'}}><b>type:</b> Enthält den Typ der Anmeldeinformationen. Gültige Werte sind: password, federated und public-key. In diesem Fall handelt es sich immer um ein PublicKeyCredential und somit ist der Wert immer "public-key".</li>
-                                <li style={{marginLeft: '45px', marginTop: '4px'}}><b>id:</b> Eindeutiger Identifier dieses Credentials. Wurde bei der Registrierung vom Authentifikator erzeugt.</li>
+                                <li style={{marginLeft: '45px', marginTop: '4px'}}><b>id:</b> Eindeutiger Identifier dieses Credentials. Dieser Wert wurde bei der Registrierung vom Authentifikator erzeugt.</li>
                                 <li style={{marginLeft: '45px', marginTop: '4px'}}><b>transports:</b> Gibt den Kommunikationsweg zwischen Browser und Authentifikator an.</li>
-                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>userVerification:</b> Gibt an, ob eine Verifikation des Benutzers durchgeführt werden soll.</li>
+                            <li style={{marginLeft: '45px', marginTop: '4px'}}><b>userVerification:</b> Beschreibt, ob der Authentifikator neben dem Test auf Präsenz, eine lokale Prüfung der Authentizität des Anwenders durchführen soll.</li>
                         </ul>
                     </ResponseDescription>
 
@@ -432,9 +436,9 @@ const Authentication = () => {
                 <StepContent className={step === 2 ? 'active-step-content' : ''}>
                     <Description>
                         <ul style={{marginLeft: '30px', marginBottom: '30px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                            <li>Der Browser sucht nun nach verfügbaren Authentifikatoren und verbindet sich entsprechend. Sind mehrere Authentikatoren verfügbar, wird der Browser den Anwender zu einer Auswahl auffordern.</li>
-                            <li style={{marginTop: '10px'}}>Anschließend sucht der Authentifikator nach einem passenden Credential. Die Suche erfolgt entwender anhand einer in der Liste <em>allowCredentials</em> enthaltenen credentialID oder anhand der rpID, sofern die Liste leer ist.</li>
-                            <li style={{marginTop: '10px'}}>Ist eine Verfifikation des Benutzers erforderlich, wird dieser außerdem zur Eingabe eines PINs, eines Passwortes oder eines biometrischen Merkmales aufgefordert, bevor der Authentifikator die entsprechenden Operationen durchführt.</li>
+                            <li>Der Browser sucht nun nach verfügbaren Authentifikatoren und verbindet sich entsprechend. Sind mehrere Authentifikatoren verfügbar, wird der Browser den Anwender zu einer Auswahl auffordern.</li>
+                            <li style={{marginTop: '10px'}}>Anschließend sucht der Authentifikator nach einem passenden Credential. Die Suche erfolgt entweder anhand einer in der Liste <em>allowCredentials</em> enthaltenen credentialID oder anhand der rpID, sofern die Liste leer ist.</li>
+                            <li style={{marginTop: '10px'}}>Ist eine Verifikation des Benutzers erforderlich, wird dieser außerdem zur Eingabe eines PINs, eines Passwortes, eines biometrischen Merkmals oder ähnlichem aufgefordert, bevor der Authentifikator die entsprechenden Operationen durchführt.</li>
                         </ul>
                     </Description>
 
