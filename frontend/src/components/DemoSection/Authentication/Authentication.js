@@ -352,7 +352,7 @@ const Authentication = () => {
                     <Description>
                         <ul style={{marginLeft: '30px', wordBreak: 'normal', whiteSpace: 'normal'}}>
                             <li>In diesem Teil der Demo wird der bei der Registrierung erstellte Berechtigungsnachweis (Credential) dazu verwendet den jeweiligen Benutzer zu authentifizieren.</li>
-                            <li style={{marginTop: '10px'}}>Benötigt wird hierzu lediglich der bei der Registrierung angegebene Benutzername. Wurde bei der Registrierung in den <em>Weiteren Optionen</em>
+                            <li style={{marginTop: '10px'}}>Benötigt wird hierzu lediglich der bei der Registrierung angegebene Benutzername. Wurde bei der Registrierung in den <em>Weiteren Optionen </em>
                                 der Haken bei dem Punkt <em>Discoverable Credential</em> gesetzt und die Authentifizierungsdaten auf dem Authentifikator gespeichert, kann eine Authentifizierung auch ohne Eingabe eines Benutzernamens erfolgen.</li>
                             <li style={{marginTop: '10px'}}>Der Benutzer hat zudem die Möglichkeit unter den <em>Weiteren Optionen</em> auszuwählen, ob eine Benutzerverifizierung vom Authentifikator durchgeführt werden soll.</li>
                         </ul>
@@ -416,13 +416,13 @@ const Authentication = () => {
                             <li>Die relying party nimmt den oben durchgeführten Request entgegen und antwortet mit einem PublicKeyCredentialRequestOptions Objekt. Dieses wird in Schritt 2 an den Authentifikator weitergegeben.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>status:</b> Gibt den Response Status der relying party an.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>errorMessage:</b> Beinhaltet eine Beschreibung des Fehlers, falls ein Fehler auftritt. Sonst null.</li>
-                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>sessionId:</b> Die ID der Session, um User-Anfragen einer Sitzung zuzuordnen. Diese wurde von der relying-party erzeugt.</li>
-                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>challenge:</b> Ist ein von der relying party zufällig generierter Wert und dient unter anderem der Vorbeugung von Wiederholungsangriffen. Dieser Wert fließt außerdem unter anderem in die Authentifizierungssignatur mit ein.</li>
+                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>sessionId:</b> Die ID der Session, um User-Anfragen einer Sitzung zuzuordnen. Dieser String wurde von der relying party erzeugt.</li>
+                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>challenge:</b> Ist ein von der relying party zufällig generierter Wert und dient unter anderem der Vorbeugung von Wiederholungsangriffen. Dieser Wert fließt außerdem in die Authentifizierungssignatur mit ein.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>timeout:</b> Zeit in Millisekunden, die von der relying party auf eine Antwort gewartet wird.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>rpId:</b> Wert zur eindeutigen Identifikation der relying party. Dieser Wert muss ein Suffix des Origin sein.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>allowCredentials:</b> Eine Liste der registierten Credentials des Benutzers. Wird eine Authentifizierung ohne Benutzernamen gewählt, ist diese Liste leer und der Authentifikator sucht sich das jeweilige passende Credential selbst anhand der vorliegenden rpID.</li>
                                 <li style={{marginLeft: '45px', marginTop: '4px'}}><b>type:</b> Enthält den Typ der Anmeldeinformationen. Gültige Werte sind: password, federated und public-key. In diesem Fall handelt es sich immer um ein PublicKeyCredential und somit ist der Wert immer "public-key".</li>
-                                <li style={{marginLeft: '45px', marginTop: '4px'}}><b>id:</b> Eindeutiger Identifier dieses Credentials. Dieser Wert wurde bei der Registrierung vom Authentifikator erzeugt.</li>
+                                <li style={{marginLeft: '45px', marginTop: '4px'}}><b>id:</b> Der zum Schlüsselpaar generierte Identifier.</li>
                                 <li style={{marginLeft: '45px', marginTop: '4px'}}><b>transports:</b> Gibt den Kommunikationsweg zwischen Browser und Authentifikator an.</li>
                             <li style={{marginLeft: '45px', marginTop: '4px'}}><b>userVerification:</b> Beschreibt, ob der Authentifikator neben dem Test auf Präsenz, eine lokale Prüfung der Authentizität des Anwenders durchführen soll.</li>
                         </ul>
@@ -437,7 +437,7 @@ const Authentication = () => {
                     <Description>
                         <ul style={{marginLeft: '30px', marginBottom: '30px', wordBreak: 'normal', whiteSpace: 'normal'}}>
                             <li>Der Browser sucht nun nach verfügbaren Authentifikatoren und verbindet sich entsprechend. Sind mehrere Authentifikatoren verfügbar, wird der Browser den Anwender zu einer Auswahl auffordern.</li>
-                            <li style={{marginTop: '10px'}}>Anschließend sucht der Authentifikator nach einem passenden Credential. Die Suche erfolgt entweder anhand einer in der Liste <em>allowCredentials</em> enthaltenen credentialID oder anhand der rpID, sofern die Liste leer ist.</li>
+                            <li style={{marginTop: '10px'}}>Anschließend sucht der Authentifikator nach einem passenden Credential. Die Suche erfolgt entweder anhand einer in der Liste <em>allowCredentials </em> enthaltenen credentialID oder anhand der rpID, sofern die Liste leer ist.</li>
                             <li style={{marginTop: '10px'}}>Ist eine Verifikation des Benutzers erforderlich, wird dieser außerdem zur Eingabe eines PINs, eines Passwortes, eines biometrischen Merkmals oder ähnlichem aufgefordert, bevor der Authentifikator die entsprechenden Operationen durchführt.</li>
                         </ul>
                     </Description>
@@ -451,14 +451,14 @@ const Authentication = () => {
                         <HeadingArrowDescription>
                             <h3>Schritt 2: Browser</h3>
                             <AnimatedArrow/>
-                            <h3>Authentikator</h3>
+                            <h3>Authentifikator</h3>
                         </HeadingArrowDescription>
                         <ul style={{fontSize: '15px', marginTop: '8px', marginLeft:'15px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                            <li>Damit der Authentikator das Credential erfolgreich erzeugen kann, wird zunächst das in Schritt 1 erhaltene Objekt in das richtige Format gebracht:</li>
+                            <li>Zunächst wird das in Schritt 1 erhaltene Objekt in das richtige Format gebracht:</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}>Dazu werden die Attribute status und errorMessage entfernt, sowie die userID und die challenge mit Base64 entschlüsselt.</li>
-                            <li style={{marginTop: '10px'}}>Der Browser (Client) ruft anschließend die Funktion navigator.credentials.create auf und übergibt dabei als Parameter das unten aufgeführte Objekt.</li>
-                            <li style={{marginTop: '10px'}}>Der Client sucht nach verfügbaren Authentikatoren und verbindet sich ensprechend. Sind mehrere Authentifikatoren verfügbar, wird der Anwender zur Auswahl aufgefordert.</li>
-                            <li style={{marginTop: '10px'}}>Daraufhin erstellt der Authentikator die Authentifizierungssignatur mit dem passenden privaten Schlüssel und gibt das im nächsten Schritt 3 zu sehende Objekt an den Browser zurück.</li>
+                            <li style={{marginTop: '10px'}}>Der Browser (Client) ruft anschließend die Methode navigator.credentials.create() auf und übergibt dabei als Parameter das unten aufgeführte Objekt.</li>
+                            <li style={{marginTop: '10px'}}>Der Client sucht nach verfügbaren Authentifikatoren und verbindet sich ensprechend. Sind mehrere Authentifikatoren verfügbar, wird der Anwender zur Auswahl aufgefordert.</li>
+                            <li style={{marginTop: '10px'}}>Daraufhin erstellt der Authentifikator die Authentifizierungssignatur mit dem passenden privaten Schlüssel und gibt das im nächsten Schritt 3 zu sehende Objekt an den Browser zurück.</li>
                         </ul>
                     </ResponseDescription>
 
@@ -471,9 +471,9 @@ const Authentication = () => {
                 <StepContent className={step === 3 ? 'active-step-content' : ''}>
                     <Description>
                         <ul style={{marginLeft: '30px', marginBottom: '30px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                            <li>Das unten aufgeführte Objekt enthält die in Schritt 2 vom Authentifikator erzeugten und an die relying-party übergebenen Daten. Das Objekt enthält unter anderem die erzeugte Authentifizierungssignatur und weitere Attribute, um den Authentifizierungsprozess zu validieren.</li>
+                            <li>Das unten aufgeführte Objekt enthält die in Schritt 2 vom Authentifikator erzeugten und an die relying party übergebenen Daten. Das Objekt enthält unter anderem die erzeugte Authentifizierungssignatur und weitere Attribute, um den Authentifizierungsprozess zu validieren.</li>
                             <li style={{marginTop: '10px'}}>Der Serverstatus über den Erfolg des Authentifizierungsprozesses kann nachträglich nochmals in der Konsole des Browsers geprüft werden.</li>
-                            <li style={{marginTop: '10px'}}>Ein weiterer Authentifikator kann über den Button <em>Zum Account</em> registriert werden. Außerdem besteht unter diesem Punkt die Möglichkeit alle bereits registrierten Credentials einzusehen.</li>
+                            <li style={{marginTop: '10px'}}>Ein weiterer Authentifikator kann über den Button <em>Zum Account </em> registriert werden. Außerdem besteht unter diesem Punkt die Möglichkeit alle bereits registrierten Credentials einzusehen.</li>
                         </ul>
                     </Description>
 
@@ -484,34 +484,34 @@ const Authentication = () => {
 
                     <ResponseDescription className={activeAuth === true ? 'active' : ''}>
                         <HeadingArrowDescription>
-                            <h3>Schritt 3: Authentikator</h3>
+                            <h3>Schritt 3: Authentifikator</h3>
                             <AnimatedArrow/>
                             <h3>Browser</h3>
                         </HeadingArrowDescription>
                         <ul style={{fontSize: '15px', marginTop: '8px', marginLeft:'15px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>authenticatorAttachment:</b> Beschreibt den Authentikatortyp (platform = im Clientgerät integriert, cross-platform = externe Komponente). </li>
+                            <li style={{marginLeft: '25px', marginTop: '4px'}}><b>authenticatorAttachment:</b> Beschreibt den Authentifikatortyp (platform = im Clientgerät integriert, cross-platform = externe Komponente).</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>id:</b> Gibt die ID des zur Erzeugung der Authentifizierungssignatur verwendeten Credentials an.</li>
-                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>rawId:</b> Ist identisch zur "id", nur in binärer Form. Das Attribut wurde zur besseren Lesbarkeit ebenfalls Base64 verschlüsselt.</li>
+                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>rawId:</b> Dieser Wert ist identisch zu "id", nur in binärer Form. Das Attribut wurde zur besseren Lesbarkeit ebenfalls Base64 verschlüsselt.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>response:</b> Beinhaltet alle vom Authentifikator erzeugten und an den Browser zurückgegebenen Daten.</li>
                                 <li style={{marginLeft: '45px', marginTop: '6px'}}><b>authenticatorData:</b> Beinhaltet die Rückgabewerte der durchgeführten Operationen zur Erzeugung der Authentifizierungssignatur.</li>
-                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>flags:</b> Ein Bitfeld, das verschiedene Attribute angibt, die vom Authentikator bestätigt wurden..</li>
+                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>flags:</b> Ein Bitfeld, das verschiedene Attribute angibt, die vom Authentifikator bestätigt wurden.</li>
                                         <li style={{marginLeft: '85px', marginTop: '4px'}}><b>ED:</b> Zeigt an, ob die zurück gegebenen Daten Erweiterungen (extensions) enthalten.</li>
-                                        <li style={{marginLeft: '85px', marginTop: '4px'}}><b>AT:</b> Zeigt an, ob der Authentifikator Daten über eine Beglaubigung hinzugefügt hat.</li>
-                                        <li style={{marginLeft: '85px', marginTop: '4px'}}><b>UV:</b> Zeigt an, ob der Benutzer vom Authentikator verifiziert wurde. Die Verifizierung erfolgt mittels einer PIN, einem Passwort, eines biometrischen Merkmals oder ähnlichem.</li>
-                                        <li style={{marginLeft: '85px', marginTop: '4px'}}><b>UP:</b> Zeigt durch eine Prüfung der Nutzerpräsenz an, ob der Benutzer anwesend ist. Diese Prüfung kann durch das Berühren einer auf dem Authentifikator befindlichen Schaltfläche geschehen oder durch eine erfolgreich durchgeführte lokale Verifizierung des Anwenders.</li>
+                                        <li style={{marginLeft: '85px', marginTop: '4px'}}><b>AT:</b> Zeigt an, ob der Authentifikator Daten einer Beglaubigung beigefügt hat.</li>
+                                        <li style={{marginLeft: '85px', marginTop: '4px'}}><b>UV:</b> Zeigt an, ob der Benutzer vom Authentifikator verifiziert wurde. Die Verifizierung erfolgt mittels einer PIN, einem Passwort, eines biometrischen Merkmals oder ähnlichem.</li>
+                                        <li style={{marginLeft: '85px', marginTop: '4px'}}><b>UP:</b> Zeigt durch eine Prüfung der Nutzerpräsenz an, ob der Benutzer anwesend ist. Diese Prüfung kann entweder durch das Berühren einer auf dem Authentifikator befindlichen Schaltfläche erfolgen oder durch eine erfolgreich durchgeführte lokale Verifizierung des Anwenders.</li>
                                     <li style={{marginLeft: '65px', marginTop: '4px'}}><b>rpIdHash:</b> Ein SHA256-Hash der relying party ID. Die relying party stellt damit sicher, dass dieser Hash mit dem Hash der eigenen ID übereinstimmt, um Phishing oder Man-in-the-Middle-Angriffe zu verhindern.</li>
-                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>signatureCounter:</b> Ein Zähler, der bei jeder erfolgreich durchgeführten Authentifizierung inkrementiert wird, damit die relying party geklonte Authentikatoren erkennen kann.</li>
-                                <li style={{marginLeft: '45px', marginTop: '6px'}}><b>clientDataJSON:</b> Eine Sammlung von Daten, die vom Browser an den Authentikator übergeben werden.</li>
-                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>type:</b> Gibt die durchgeführte webauthn-Operation an. Beinhaltet entweder den Wert "webauthn.get", wenn ein vorhandenes Credential abgerufen wird oder "webauthn.create", wenn ein neuer Berechtigungsnachweis erstellt wird. Das Attribut beinhaltet somit bei der Authentifizierung immer den Wert "webauthn.get".</li>
-                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>challenge:</b> Die kryptografische Challenge, welche beim initialen Austausch von der relying party gesendet wurde.</li>
-                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>origin:</b> Gibt an, ob die Möglichkeit von cross-origin-requests bestehen soll. D.h. die relying party akzeptiert Anfragen auch von einer anderen Origin, die nicht ihres eigenen Origins entspricht.</li>
-                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>crossOrigin:</b> Gibt an, ob die Möglichkeit von cross-origin-requests bestehen soll. D.h. die relying party akzeptiert Anfragen auch von einer anderen Domain.</li>
+                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>signatureCounter:</b> Ein Zähler, der bei jeder erfolgreich durchgeführten Authentifizierung inkrementiert wird und zur Erkennung geklonter Authentifikatoren dient.</li>
+                                <li style={{marginLeft: '45px', marginTop: '6px'}}><b>clientDataJSON:</b> Eine Sammlung der Daten, die vom Browser an den Authentifikator übergeben werden.</li>
+                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>type:</b> Gibt die durchgeführte WebAuthn-Operation an. Beinhaltet entweder den Wert "webauthn.get", wenn ein vorhandenes Credential abgerufen wird oder "webauthn.create", wenn ein neuer Berechtigungsnachweis erstellt wird. Das Attribut beinhaltet somit bei der Authentifizierung immer den Wert "webauthn.get".</li>
+                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>challenge:</b> Die einzigartige Challenge, welche beim initialen Austausch von der relying party gesendet wurde.</li>
+                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>origin:</b> Origin, auf dem die webauthn.get-Operation durchgeführt wurde. Die rpID muss ein Suffix dieses Wertes sein.</li>
+                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>crossOrigin:</b> Gibt an, ob die Möglichkeit von cross-origin-requests bestehen soll. D.h. die relying party akzeptiert Anfragen auch von einer anderen Origin, die nicht ihres eigenen Origins entspricht.</li>
                                 <li style={{marginLeft: '45px', marginTop: '6px'}}><b>signature:</b> Die erzeugte Authentifizierungssignatur, welche mit dem passenden privaten Schlüssel vom Authentifikator über die Bytes des Objektes <em>authenticatorData</em> und einem SHA-256-Hash des <em>clientDataJSON</em> Objektes generiert wurde. Die relying party prüft die Gültigkeit dieser Signatur im Gegenzug mit dem passenden öffentlichen Schlüssel.</li>
                                 <li style={{marginLeft: '45px', marginTop: '6px'}}><b>userHandle:</b> Entspricht der bei der Registrierung von der relying party erzeugten UserID aus dem angegebenen Benutzernamen.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>type:</b> Enthält den Typ der Anmeldeinformationen. Gültige Werte sind: password, federated und public-key. In diesem Fall handelt es sich immer um ein PublicKeyCredential und somit ist der Wert immer "public-key".</li>
-                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>extensions:</b> Gibt mögliche Client-Weauthn-Erweiterungen an, um bspw. nicht nur festzustellen, ob der Benutzer verifiziert wurde, sondern auch wie. Diese Demo bietet jedoch keine Möglichkeit Erweiterungen zu wählen. Das Objekt ist somit immer leer.</li>
+                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>extensions:</b> Gibt mögliche Client-WebAuthn-Erweiterungen an, um bspw. nicht nur festzustellen, ob der Benutzer verifiziert wurde, sondern auch wie die Verifikation erfolgt ist. Diese Demo bietet jedoch keine Möglichkeit Erweiterungen zu wählen. Das Objekt ist somit immer leer.</li>
                             <li style={{marginTop: '10px'}}>Das gesamte Objekt wird im Anschluss Base64 verschlüsselt und zur relying party gesendet.</li>
-                            <li style={{marginTop: '10px'}}>Die relying party sucht nach dem Erhalt dieses Objektes den passenden öffentlichen Schlüssel, um damit die Signatur zu verifizieren.</li>
+                            <li style={{marginTop: '10px'}}>Die relying party sucht nach dem Erhalt dieses Objektes nach dem passenden öffentlichen Schlüssel, um damit die Signatur zu verifizieren.</li>
                         </ul>
                     </ResponseDescription>
 
