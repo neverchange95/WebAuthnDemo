@@ -320,7 +320,7 @@ const Registration = () => {
                                 für eine indirekte Beglaubigung.
                             </p>
                             <ul style={{fontSize: '13px', marginLeft: '12px', marginBottom: '10px', marginTop: '10px', lineHeight: '20px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                                <li><b>NONE:</b> Standardwert. Die relying party ist an KEINER Beglaubigung vom Authentifikator interessiert.</li>
+                                <li><b>NONE:</b> Die relying party ist an KEINER Beglaubigung vom Authentifikator interessiert.</li>
                                 <li><b>INDIRECT:</b> Die relying party möchte eine Beglaubigung erhalten, überlässt den
                                     Client jedoch die Entscheidung, wie diese auszusehen hat. D.h. der Client KANN die
                                     vom Authentifikator generierte Beglaubigung verändern/anonymisieren, um bspw. die
@@ -359,9 +359,9 @@ const Registration = () => {
                             oder eines biometrischen Merkmals erfolgen.
                         </p>
                         <ul style={{fontSize: '13px', marginLeft: '12px', marginBottom: '10px', marginTop: '10px', lineHeight: '20px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                                <li><b>REQUIRED:</b> Die relying party benötigt zwingend eine Benutzerverifizierung.</li>
-                                <li><b>PREFERRED:</b> Die relying party bevorzugt eine Benutzerverifizierung. Der Registrierungsprozess wird in diesem Fall jedoch auch erfolgreich durchgeführt, wenn die relying party kein Ergebnis über eine erfolgreich durchgeführte Verifizierung erhält.</li>
-                                <li><b>DISCOURAGED:</b> Die relying party benötigt KEINE Benutzerverifizierung.</li>
+                                <li><b>REQUIRED:</b> Die relying party benötigt zwingend das Ergebnis einer Benutzerverifizierung.</li>
+                                <li><b>PREFERRED:</b> Die relying party bevorzugt das Ergebnis einer Benutzerverifizierung. Der Registrierungsprozess wird in diesem Fall jedoch auch erfolgreich durchgeführt, wenn die relying party kein Ergebnis über eine erfolgreich durchgeführte Verifizierung erhält.</li>
+                                <li><b>DISCOURAGED:</b> Die relying party benötigt KEIN Ergebnis einer Benutzerverifizierung.</li>
                             </ul>
                         <RadioButton type='radio' value='required' name='verification' checked={verification === 'required'} onChange={e => setVerification(e.target.value)} />Required
                         <RadioButton type='radio' value='preferred' name='verification' checked={verification === 'preferred'} onChange={e => setVerification(e.target.value)} style={{marginLeft: '20px'}}/>Preferred

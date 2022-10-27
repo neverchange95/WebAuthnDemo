@@ -325,9 +325,9 @@ const Authentication = () => {
 
                     <h4 style={{marginTop: '20px'}}>Benutzerverifizierung:</h4>
                     <ul style={{fontSize: '13px', marginLeft: '12px', marginBottom: '10px', marginTop: '10px', lineHeight: '20px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                        <li><b>REQUIRED:</b> Die relying party benötigt zwingend eine Benutzerverifizierung.</li>
-                        <li><b>PREFERRED:</b> Die relying party bevorzugt eine Benutzerverifizierung. Der Registrierungsprozess wird in diesem Fall jedoch auch erfolgreich durchgeführt, wenn die relying party kein Ergebnis über eine erfolgreich durchgeführte Verifizierung erhält.</li>
-                        <li><b>DISCOURAGED:</b> Die relying party benötigt KEINE Benutzerverifizierung.</li>
+                        <li><b>REQUIRED:</b> Die relying party benötigt zwingend das Ergebnis einer Benutzerverifizierung.</li>
+                        <li><b>PREFERRED:</b> Die relying party bevorzugt das Ergebnis einer Benutzerverifizierung. Der Registrierungsprozess wird in diesem Fall jedoch auch erfolgreich durchgeführt, wenn die relying party kein Ergebnis über eine erfolgreich durchgeführte Verifizierung erhält.</li>
+                        <li><b>DISCOURAGED:</b> Die relying party benötigt KEIN Ergebnis einer Benutzerverifizierung.</li>
                     </ul>
                     <RadioButton type='radio' value='required' name='verificationNewCred' checked={verificationRegNewCred === 'required'} onChange={e => setVerificationRegNewCred(e.target.value)} />Required
                     <RadioButton type='radio' value='preferred' name='verificationNewCred' checked={verificationRegNewCred === 'preferred'} onChange={e => setVerificationRegNewCred(e.target.value)} style={{marginLeft: '20px'}}/>Preferred
@@ -374,9 +374,9 @@ const Authentication = () => {
                             oder eines biometrischen Merkmals erfolgen.
                         </p>
                         <ul style={{fontSize: '13px', marginLeft: '12px', marginBottom: '10px', marginTop: '10px', lineHeight: '20px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                            <li><b>REQUIRED:</b> Die relying party benötigt zwingend eine Benutzerverifizierung.</li>
-                            <li><b>PREFERRED:</b> Die relying party bevorzugt eine Benutzerverifizierung. Der Registrierungsprozess wird in diesem Fall jedoch auch erfolgreich durchgeführt, wenn die relying party kein Ergebnis über eine erfolgreich durchgeführte Verifizierung erhält.</li>
-                            <li><b>DISCOURAGED:</b> Die relying party benötigt KEINE Benutzerverifizierung.</li>
+                            <li><b>REQUIRED:</b> Die relying party benötigt zwingend das Ergebnis einer Benutzerverifizierung.</li>
+                            <li><b>PREFERRED:</b> Die relying party bevorzugt das Ergebnis einer Benutzerverifizierung. Der Registrierungsprozess wird in diesem Fall jedoch auch erfolgreich durchgeführt, wenn die relying party kein Ergebnis über eine erfolgreich durchgeführte Verifizierung erhält.</li>
+                            <li><b>DISCOURAGED:</b> Die relying party benötigt KEIN Ergebnis einer Benutzerverifizierung.</li>
                         </ul>
                         <RadioButton type='radio' value='required' name='verification' checked={verification === 'required'} onChange={e => setVerification(e.target.value)} />Required
                         <RadioButton type='radio' value='preferred' name='verification' checked={verification === 'preferred'} onChange={e => setVerification(e.target.value)} style={{marginLeft: '20px'}}/>Preferred
