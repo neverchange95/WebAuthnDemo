@@ -109,10 +109,6 @@ const Authentication = () => {
         return flagObject
     }
 
-    /**
-     * Calls the .get() API and sends result to server to verify
-     * @return {any} server response object
-     */
     function getAssertion(options) {
         return navigator.credentials.get({publicKey: options})
             .then(rawAssertion => {
@@ -314,7 +310,7 @@ const Authentication = () => {
 
                     <h4 style={{marginTop: '20px'}}>Authentifikatorplattform:</h4>
                     <ul style={{fontSize: '13px', marginLeft: '12px', marginBottom: '10px', marginTop: '10px', lineHeight: '20px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                        <li><b>PLATFORM:</b> Der Authentifikator ist fest im Gerät verbaut (TouchID, FaceID, Windows Hello, etc.).</li>
+                        <li><b>PLATFORM:</b> Der Authentifikator ist im Gerät integriert (TouchID, FaceID, Windows Hello, etc.).</li>
                         <li><b>CROSS-PLATFORM:</b> Der Authentifikator ist eine entfernbare Hardwarekomponente (USB, Bluetooth, NFC, etc.).</li>
                     </ul>
                     <RadioButton type='radio' value='platform' name='authenticatorNewCred' checked={authenticatorRegNewCred === 'platform'} onChange={e => setAuthenticatorRegNewCred(e.target.value)}/>Platform
@@ -351,9 +347,9 @@ const Authentication = () => {
                 <StepContent className={step === 1 ? 'active-step-content' :  ''}>
                     <Description>
                         <ul style={{marginLeft: '30px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                            <li>In diesem Teil der Demo wird der bei der Registrierung erstellte Berechtigungsnachweis (Credential) dazu verwendet den jeweiligen Benutzer zu authentifizieren.</li>
+                            <li>In diesem Teil der Demo wird der erzeugte Berechtigungsnachweis (Credential) dazu verwendet den jeweiligen Benutzer zu authentifizieren.</li>
                             <li style={{marginTop: '10px'}}>Benötigt wird hierzu lediglich der bei der Registrierung angegebene Benutzername. Wurde bei der Registrierung in den <em>Weiteren Optionen </em>
-                                der Haken bei dem Punkt <em>Discoverable Credential</em> gesetzt und die Authentifizierungsdaten auf dem Authentifikator gespeichert, kann eine Authentifizierung auch ohne Eingabe eines Benutzernamens erfolgen.</li>
+                                der Haken bei dem Punkt <em>Discoverable Credential</em> gesetzt und die Authentifizierungsdaten auf dem Authentifikator gespeichert, kann eine Authentifizierung auch ohne die Eingabe eines Benutzernamens erfolgen.</li>
                             <li style={{marginTop: '10px'}}>Der Benutzer hat zudem die Möglichkeit unter den <em>Weiteren Optionen</em> auszuwählen, ob eine Benutzerverifizierung vom Authentifikator durchgeführt werden soll.</li>
                         </ul>
                     </Description>
@@ -420,7 +416,7 @@ const Authentication = () => {
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>challenge:</b> Ist ein von der relying party zufällig generierter Wert und dient unter anderem der Vorbeugung von Wiederholungsangriffen. Dieser Wert fließt außerdem in die Authentifizierungssignatur mit ein.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>timeout:</b> Zeit in Millisekunden, die von der relying party auf eine Antwort gewartet wird.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>rpId:</b> Wert zur eindeutigen Identifikation der relying party. Dieser Wert muss ein Suffix des Origin sein.</li>
-                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>allowCredentials:</b> Eine Liste der registierten Credentials des Benutzers. Wird eine Authentifizierung ohne Benutzernamen gewählt, ist diese Liste leer und der Authentifikator sucht sich das jeweilige passende Credential selbst anhand der vorliegenden rpID.</li>
+                            <li style={{marginLeft: '25px', marginTop: '10px'}}><b>allowCredentials:</b> Eine Liste der registierten Credentials des Benutzers. Wird eine Authentifizierung ohne Benutzernamen gewählt, ist diese Liste leer und der Authentifikator sucht das passende Credential in seinem interen Speicher anhand der vorliegenden rpID.</li>
                                 <li style={{marginLeft: '45px', marginTop: '4px'}}><b>type:</b> Enthält den Typ der Anmeldeinformationen. Gültige Werte sind: password, federated und public-key. In diesem Fall handelt es sich immer um ein PublicKeyCredential und somit ist der Wert immer "public-key".</li>
                                 <li style={{marginLeft: '45px', marginTop: '4px'}}><b>id:</b> Der zum Schlüsselpaar generierte Identifier.</li>
                                 <li style={{marginLeft: '45px', marginTop: '4px'}}><b>transports:</b> Gibt den Kommunikationsweg zwischen Browser und Authentifikator an.</li>
@@ -437,7 +433,7 @@ const Authentication = () => {
                     <Description>
                         <ul style={{marginLeft: '30px', marginBottom: '30px', wordBreak: 'normal', whiteSpace: 'normal'}}>
                             <li>Der Browser sucht nun nach verfügbaren Authentifikatoren und verbindet sich entsprechend. Sind mehrere Authentifikatoren verfügbar, wird der Browser den Anwender zu einer Auswahl auffordern.</li>
-                            <li style={{marginTop: '10px'}}>Anschließend sucht der Authentifikator nach einem passenden Credential. Die Suche erfolgt entweder anhand einer in der Liste <em>allowCredentials </em> enthaltenen credentialID oder anhand der rpID, sofern die Liste leer ist.</li>
+                            <li style={{marginTop: '10px'}}>Anschließend sucht der Authentifikator entwender nach einem passenden Credential innerhalb seines internen Speichers anhand der rpID oder entschlüsselt eine passende credentialID zu einem privaten Schlüssel, sofern der Authentifikator über keinen internen Speicher verfügt.</li>
                             <li style={{marginTop: '10px'}}>Ist eine Verifikation des Benutzers erforderlich, wird dieser außerdem zur Eingabe eines PINs, eines Passwortes, eines biometrischen Merkmals oder ähnlichem aufgefordert, bevor der Authentifikator die entsprechenden Operationen durchführt.</li>
                         </ul>
                     </Description>
@@ -456,7 +452,7 @@ const Authentication = () => {
                         <ul style={{fontSize: '15px', marginTop: '8px', marginLeft:'15px', wordBreak: 'normal', whiteSpace: 'normal'}}>
                             <li>Zunächst wird das in Schritt 1 erhaltene Objekt in das richtige Format gebracht:</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}>Dazu werden die Attribute status und errorMessage entfernt, sowie die userID und die challenge mit Base64 entschlüsselt.</li>
-                            <li style={{marginTop: '10px'}}>Der Browser (Client) ruft anschließend die Methode navigator.credentials.create() auf und übergibt dabei als Parameter das unten aufgeführte Objekt.</li>
+                            <li style={{marginTop: '10px'}}>Der Browser (Client) ruft anschließend die Methode navigator.credentials.get() auf und übergibt dabei als Parameter das unten aufgeführte Objekt.</li>
                             <li style={{marginTop: '10px'}}>Der Client sucht nach verfügbaren Authentifikatoren und verbindet sich ensprechend. Sind mehrere Authentifikatoren verfügbar, wird der Anwender zur Auswahl aufgefordert.</li>
                             <li style={{marginTop: '10px'}}>Daraufhin erstellt der Authentifikator die Authentifizierungssignatur mit dem passenden privaten Schlüssel und gibt das im nächsten Schritt 3 zu sehende Objekt an den Browser zurück.</li>
                         </ul>
@@ -503,7 +499,7 @@ const Authentication = () => {
                                     <li style={{marginLeft: '65px', marginTop: '4px'}}><b>signatureCounter:</b> Ein Zähler, der bei jeder erfolgreich durchgeführten Authentifizierung inkrementiert wird und zur Erkennung geklonter Authentifikatoren dient.</li>
                                 <li style={{marginLeft: '45px', marginTop: '6px'}}><b>clientDataJSON:</b> Eine Sammlung der Daten, die vom Browser an den Authentifikator übergeben werden.</li>
                                     <li style={{marginLeft: '65px', marginTop: '4px'}}><b>type:</b> Gibt die durchgeführte WebAuthn-Operation an. Beinhaltet entweder den Wert "webauthn.get", wenn ein vorhandenes Credential abgerufen wird oder "webauthn.create", wenn ein neuer Berechtigungsnachweis erstellt wird. Das Attribut beinhaltet somit bei der Authentifizierung immer den Wert "webauthn.get".</li>
-                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>challenge:</b> Die einzigartige Challenge, welche beim initialen Austausch von der relying party gesendet wurde.</li>
+                                    <li style={{marginLeft: '65px', marginTop: '4px'}}><b>challenge:</b> Die kryptographische Challenge, welche beim initialen Austausch von der relying party gesendet wurde.</li>
                                     <li style={{marginLeft: '65px', marginTop: '4px'}}><b>origin:</b> Origin, auf dem die webauthn.get-Operation durchgeführt wurde. Die rpID muss ein Suffix dieses Wertes sein.</li>
                                     <li style={{marginLeft: '65px', marginTop: '4px'}}><b>crossOrigin:</b> Gibt an, ob die Möglichkeit von cross-origin-requests bestehen soll. D.h. die relying party akzeptiert Anfragen auch von einer anderen Origin, die nicht ihres eigenen Origins entspricht.</li>
                                 <li style={{marginLeft: '45px', marginTop: '6px'}}><b>signature:</b> Die erzeugte Authentifizierungssignatur, welche mit dem passenden privaten Schlüssel vom Authentifikator über die Bytes des Objektes <em>authenticatorData</em> und einem SHA-256-Hash des <em>clientDataJSON</em> Objektes generiert wurde. Die relying party prüft die Gültigkeit dieser Signatur im Gegenzug mit dem passenden öffentlichen Schlüssel.</li>

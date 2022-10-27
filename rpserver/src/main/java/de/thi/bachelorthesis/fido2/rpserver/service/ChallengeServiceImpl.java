@@ -69,7 +69,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                 .authenticatorSelection(regOptionRequest.getAuthenticatorSelection())
                 .challenge(ChallengeGenerator.generate(64))
                 .pubKeyCredParams(publicKeyCredentialParameters)
-                .timeout(180000L)
+                .timeout(600000L)
                 .build();
 
         return serverResponse;
@@ -95,7 +95,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         ServerPublicKeyCredentialGetOptionsResponse serverResponse = ServerPublicKeyCredentialGetOptionsResponse
                 .builder()
                 .challenge(ChallengeGenerator.generate(64))
-                .timeout(180000L)
+                .timeout(600000L)
                 .rpId(rpId)
                 .allowCredentials(allowCredentials)
                 .userVerification(authOptionRequest.getUserVerification())

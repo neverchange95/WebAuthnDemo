@@ -110,12 +110,7 @@ const Registration = () => {
             })
     }
 
-    /**
-     * Calls the .create() webauthn APIs and sends returns to server
-     * @return {any} server response object
-     */
     function createCredential(options) {
-
         return navigator.credentials.create({publicKey: options})
             .then(rawAttestation => {
                 // Decode rawAttestation
@@ -338,8 +333,8 @@ const Registration = () => {
                                 Legt den Kommunikationsmechanismus zwischen Client und Authentifikator fest.
                             </p>
                             <ul style={{fontSize: '13px', marginLeft: '12px', marginBottom: '10px', marginTop: '10px', lineHeight: '20px', wordBreak: 'normal', whiteSpace: 'normal'}}>
-                                <li><b>PLATFORM:</b> Der Authentifikator ist fest im Gerät verbaut (TouchID, FaceID, Windows Hello, etc.).</li>
-                                <li><b>CROSS-PLATFORM:</b> Der Authentifikator ist eine entfernbare Hardwarekomponente (USB, Bluetooth, NFC, etc.).</li>
+                                <li><b>PLATFORM:</b> Der Authentifikator ist im Gerät integriert (TouchID, FaceID, Windows Hello, etc.).</li>
+                                <li><b>CROSS-PLATFORM:</b> Der Authentifikator istx eine entfernbare Hardwarekomponente (USB, Bluetooth, NFC, etc.).</li>
                             </ul>
                         <RadioButton type='radio' value='platform' name='authenticator' checked={authenticator === 'platform'} onChange={e => setAuthenticator(e.target.value)}/>Platform
                         <RadioButton type='radio' value='cross-platform' name='authenticator' checked={authenticator === 'cross-platform'} onChange={e => setAuthenticator(e.target.value)} style={{marginLeft: '20px'}}/>Cross-Platform
@@ -418,7 +413,7 @@ const Registration = () => {
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>excludeCredentials:</b> Eine Liste bereits registrierter Credentials für diesen Benutzer. Dient als Info für den Authentikator, um eine doppelte Registierung eines Credentials zu vermeiden.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>authenticatorSelection:</b> Spezifiziert Anforderungen, welche Operationen ein Authentifikator durchführen und unterstützen muss.</li>
                                 <li style={{marginLeft: '45px', marginTop: '4px'}}><b>authenticatorAttachment:</b> Beschreibt den Authentifikatortyp (platform = im Clientgerät integriert, cross-platform = externe Komponente).</li>
-                                <li style={{marginLeft: '45px', marginTop: '4px'}}><b>requireResidentKey:</b> Beschreibt, ob ein <em>discoverable credential</em> erzeugt werden soll. Damit kann sich der Anwender ohne einer Angabe von Benutzerinformationen authentifizieren. Außerdem werden die Authentifizierungsdaten hierbei auf dem Authentifikator selbst gesichert, statt sie der relying party zur Sicherung zur übergeben.</li>
+                                <li style={{marginLeft: '45px', marginTop: '4px'}}><b>requireResidentKey:</b> Beschreibt, ob ein <em>discoverable credential</em> erzeugt werden soll. Damit kann sich der Anwender ohne einer Angabe von Benutzerinformationen authentifizieren. Außerdem werden die Authentifizierungsdaten hierbei auf dem Authentifikator selbst gesichert, statt sie der relying party zur Speicherung zu übergeben.</li>
                                 <li style={{marginLeft: '45px', marginTop: '4px'}}><b>userVerification:</b> Beschreibt, ob der Authentifikator neben dem Test auf Präsenz, eine lokale Prüfung der Authentizität des Anwenders durchführen soll.</li>
                             <li style={{marginLeft: '25px', marginTop: '10px'}}><b>attestation:</b> Gibt die gewünschte Beglaubigungsvariante an. Für weitere Informationen siehe <em>Weitere Optionen.</em></li>
                         </ul>
@@ -433,7 +428,7 @@ const Registration = () => {
                     <Description>
                         <ul style={{marginLeft: '30px', marginBottom: '30px', wordBreak: 'normal', whiteSpace: 'normal'}}>
                             <li>Der Browser sucht nun nach verfügbaren Authentifikatoren und verbindet sich entsprechend. Sind mehrere Authentifikatoren verfügbar, wird der Browser den Anwender zu einer Auswahl auffordern.</li>
-                            <li style={{marginTop: '10px'}}> Ist eine Verifikation des Benutzers erforderlich, wird dieser außerdem zur Eingabe eines PINs, eines Passwortes oder eines biometrischen Merkmals aufgefordert, bevor der Authentifikator die entsprechenden Operationen durchführt.</li>
+                            <li style={{marginTop: '10px'}}> Ist eine Verifikation des Benutzers erforderlich, wird dieser außerdem zur Eingabe eines PINs, eines Passwortes, eines biometrischen Merkmals oder ähnlichem aufgefordert, bevor der Authentifikator die entsprechenden Operationen durchführt.</li>
                         </ul>
                     </Description>
                     <ButtonContainer>
@@ -465,7 +460,7 @@ const Registration = () => {
                     <Description>
                         <ul style={{marginLeft: '30px', marginBottom: '30px', wordBreak: 'normal', whiteSpace: 'normal'}}>
                             <li>Das unten aufgeführte Objekt enthält die in Schritt 2 vom Authentifikator erzeugten und an die relying party übergebenen Daten. Das Objekt enthält unter anderem den erzeugten öffentlichen Schlüssel und weitere Attribute, um den Registrierungsprozess zu validieren.</li>
-                            <li style={{marginTop: '10px'}}>Der Serverstatus über den Erfolg des Authentifizierungsprozesses kann nachträglich nochmals in der Konsole des Browsers geprüft werden.</li>
+                            <li style={{marginTop: '10px'}}>Der Serverstatus über den Erfolg des Registrierungsprozesses kann nachträglich nochmals in der Konsole des Browsers geprüft werden.</li>
                         </ul>
                     </Description>
                     <ButtonContainer>
@@ -740,6 +735,4 @@ const RegistrationOptionsContainer = styled.div`
   }
 
 `
-
-
 export default Registration

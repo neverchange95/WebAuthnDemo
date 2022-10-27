@@ -19,7 +19,7 @@ const LandingSection = () => {
                     Verfahrens ermöglicht Benutzer stark und ohne Passwort zu authentifizieren. Diese
                     Anwendung veranschaulicht dabei die ausgetauschten Daten zwischen Relying Party, Client und
                     Authentifikator und ermöglicht es einen vollständigen Registrierungs- und Authentifizierungsprozess
-                    mit einem Authentifikator durchzuführen.
+                    durchzuführen.
                 </LandingDescription>
                 <LandingDescription>Hier gehts zur Demo:</LandingDescription>
                 <LandingButtonWrapper>
